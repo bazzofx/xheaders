@@ -1,16 +1,10 @@
 import type React from "react"
 import "@/app/globals.css"
-import { Inter, Acme } from "next/font/google"
+import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import FlyingEmails from "@/components/flying-emails"
 
 const inter = Inter({ subsets: ["latin"] })
-const acme = Acme({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-acme",
-})
 
 export const metadata = {
   title: "Email Header Analyzer",
@@ -25,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${acme.variable}`}>
+      <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {/* Flying emails at the root level */}
           <FlyingEmails />

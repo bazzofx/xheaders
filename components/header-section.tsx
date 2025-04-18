@@ -14,7 +14,7 @@ export default function HeaderSection({ title, content, tooltip, highlight = fal
       className={`p-4 rounded-lg ${highlight ? "bg-yellow-100 border border-yellow-300" : "bg-white border border-gray-200"}`}
     >
       <div className="flex items-center mb-2">
-        <h3 className="font-medium acme-regular">{title}</h3>
+        <h3 className="font-medium">{title}</h3>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

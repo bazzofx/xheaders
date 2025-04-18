@@ -109,9 +109,7 @@ export default function AnalyzePage() {
                 <ArrowLeft className="mr-2 h-4 w-4" /> Back
               </Button>
             </Link>
-            <h1 className="text-3xl font-bold text-center flex-1 text-purple-800 acme-regular">
-              Email Header Analysis
-            </h1>
+            <h1 className="text-3xl font-bold text-center flex-1 text-purple-800">Email Header Analysis</h1>
           </div>
 
           <Card className="p-6 border-red-200 bg-white/80 backdrop-blur-sm">
@@ -144,11 +142,11 @@ export default function AnalyzePage() {
               <ArrowLeft className="mr-2 h-4 w-4" /> Back
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold text-center flex-1 text-purple-800 acme-regular">Email Header Analysis</h1>
+          <h1 className="text-3xl font-bold text-center flex-1 text-purple-800">Email Header Analysis</h1>
         </div>
 
         <Card className="mb-8 p-6 border-yellow-200 bg-white/80 backdrop-blur-sm">
-          <h1 className="text-2xl font-bold mb-2 acme-regular">Header Analyzed</h1>
+          <h1 className="text-2xl font-bold mb-2">Header Analyzed</h1>
           <h2 className="text-lg mb-4">
             <small>
               Email Subject: <span className="text-purple-600">{headerData.subject}</span>
@@ -171,12 +169,12 @@ export default function AnalyzePage() {
         </Card>
 
         <Card className="mb-8 p-6 border-yellow-200 bg-white/80 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold mb-4 text-purple-700 acme-regular">DKIM Verification</h2>
+          <h2 className="text-xl font-semibold mb-4 text-purple-700">DKIM Verification</h2>
           <DkimVerification dkimInfo={headerData.dkim} />
         </Card>
 
         <Card className="mb-8 p-6 border-yellow-200 bg-white/80 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold mb-4 text-purple-700 acme-regular">Relay Information</h2>
+          <h2 className="text-xl font-semibold mb-4 text-purple-700">Relay Information</h2>
 
           <table className="w-full mb-4 text-sm border-collapse">
             <tbody>
@@ -200,7 +198,7 @@ export default function AnalyzePage() {
         </Card>
 
         <Card className="mb-8 p-6 border-yellow-200 bg-white/80 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold mb-4 text-purple-700 acme-regular">Authentication Status</h2>
+          <h2 className="text-xl font-semibold mb-4 text-purple-700">Authentication Status</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center p-4 rounded-lg bg-yellow-50 border border-yellow-200">
               <div className="mr-4">
@@ -286,10 +284,10 @@ export default function AnalyzePage() {
         </Card>
 
         <Card className="mb-8 p-6 border-yellow-200 bg-white/80 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold mb-4 text-purple-700 acme-regular">Header Sections</h2>
+          <h2 className="text-xl font-semibold mb-4 text-purple-700">Header Sections</h2>
 
           <Tabs defaultValue="routing">
-            <TabsList className="mb-4 bg-yellow-100 acme-regular">
+            <TabsList className="mb-4 bg-yellow-100">
               <TabsTrigger value="routing">Server & Routing</TabsTrigger>
               <TabsTrigger value="authentication">Authentication</TabsTrigger>
               <TabsTrigger value="metadata">Metadata</TabsTrigger>
@@ -443,7 +441,7 @@ export default function AnalyzePage() {
         </Card>
 
         <Card className="p-6 border-yellow-200 bg-white/80 backdrop-blur-sm">
-          <h2 className="text-xl font-semibold mb-4 text-purple-700 acme-regular">Raw Header</h2>
+          <h2 className="text-xl font-semibold mb-4 text-purple-700">Raw Header</h2>
           <div className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <pre className="text-xs whitespace-pre-wrap">{headerData.rawHeader}</pre>
           </div>

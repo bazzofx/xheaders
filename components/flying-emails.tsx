@@ -16,10 +16,10 @@ export default function FlyingEmails() {
     <div
       id="flying-emails-container"
       className="fixed inset-0 overflow-hidden pointer-events-none"
-      style={{ zIndex: 5 }}
+      style={{ zIndex: 50 }}
     >
       {/* Good emails */}
-      {[...Array(3)].map((_, index) => (
+      {[...Array(5)].map((_, index) => (
         <FlyingEmailIcon key={`good-${index}`} index={index} />
       ))}
 

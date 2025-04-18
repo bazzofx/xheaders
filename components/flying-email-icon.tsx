@@ -107,18 +107,18 @@ export default function FlyingEmailIcon({ index }: FlyingEmailIconProps) {
       }}
     >
       <svg
-        fill="#a855f7"
+        fill="#48378b"
         viewBox="0 0 24 24"
         id="email"
         data-name="Flat Color"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-full"
       >
-        <rect id="primary" x="2" y="4" width="20" height="16" rx="2" style={{ fill: "#f5e6ff" }} />
+        <rect id="primary" x="2" y="4" width="20" height="16" rx="2" style={{ fill: "#d1b4fe" }} />
         <path
           id="secondary"
           d="M21.25,4.45A2,2,0,0,0,20,4H4a2,2,0,0,0-1.25.45A1,1,0,0,0,2.76,6l8,6.29a2,2,0,0,0,2.48,0l8-6.29a1,1,0,0,0,0-1.56Z"
-          style={{ fill: "#fef9c3" }}
+          style={{ fill: "#fff5db" }}
         />
       </svg>
     </div>
