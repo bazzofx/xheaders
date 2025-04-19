@@ -1,6 +1,6 @@
 ﻿# XHeaders
 
-# Deploying Cyber Siege
+# Deploying xHeaders
 # DOCKER BUILD
 ## Build the Image
 ```
