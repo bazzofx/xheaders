@@ -24,7 +24,7 @@ RUN git clone https://github.com/bazzofx/xheaders.git /app
 WORKDIR /app
 
 # Install npm dependencies
-RUN npm install  2>/dev/null
+RUN npm install --force  2>/dev/null
 
 # Set environment variable for API key
 ARG API_KEY

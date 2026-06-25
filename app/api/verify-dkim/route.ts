@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     let errorDetails = ["Signature verification failed"]
 
     // Check for specific domain-related issues
-    if (dkimParams.domain === "necsws.com") {
+    if (dkimParams.domain === "example.com") {
       errorReason = "Email has been modified during transit"
       errorDetails = [
         "The email has passed through multiple mail servers",
