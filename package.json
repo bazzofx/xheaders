@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "production": "next build && next start --port 3001"
+    "production": "next build && next start --port 3003"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

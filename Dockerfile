@@ -33,7 +33,7 @@ ENV ABUSEIPDB_API_KEY=${API_KEY}
 RUN echo "ABUSEIPDB_API_KEY=${API_KEY}" > .env.local
 
 # Expose necessary ports
-EXPOSE 3001
+EXPOSE 3003
 
 # Define startup script to start both Nginx and the app
 CMD  npm run production
