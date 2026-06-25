@@ -17,30 +17,30 @@ export default function DeliveryInfo({
   dkimAuthenticated,
 }: DeliveryInfoProps) {
   return (
-    <div className="p-4 bg-white border border-yellow-200 rounded-lg">
-      <h2 className="text-xl font-semibold mb-4 text-purple-700">Delivery Information</h2>
+    <div className="p-5 bg-slate-950/40 border border-slate-800/80 rounded-xl">
+      <h2 className="text-lg font-semibold mb-4 text-slate-100 border-b border-slate-800/60 pb-2">Delivery Authentication Status</h2>
 
-      <ul className="space-y-2">
+      <ul className="space-y-3">
         <li className="flex items-center">
           {dmarcCompliant ? (
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 mr-2">
-              <Check className="h-4 w-4 text-green-600" />
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-950/50 border border-emerald-500/30 mr-3">
+              <Check className="h-3.5 w-3.5 text-emerald-400" />
             </span>
           ) : (
-            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 mr-2">
-              <X className="h-4 w-4 text-red-600" />
+            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-950/50 border border-red-500/30 mr-3">
+              <X className="h-3.5 w-3.5 text-red-400" />
             </span>
           )}
-          <span className="font-medium">DMARC Compliant</span>
+          <span className="font-semibold text-slate-200">DMARC Compliant</span>
 
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button className="ml-2 text-purple-600">
+                <button className="ml-2 text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
                   <Info className="h-4 w-4" />
                 </button>
               </TooltipTrigger>
-              <TooltipContent className="max-w-sm">
+              <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                 {dmarcCompliant ? (
                   <p>
                     SUCCESS: This email passes DMARC verification because either SPF or DKIM (or both) passed
@@ -60,27 +60,27 @@ export default function DeliveryInfo({
         </li>
 
         <li className="ml-6">
-          <ul className="space-y-2">
+          <ul className="space-y-2.5 border-l border-slate-800/80 pl-4 mt-2">
             <li className="flex items-center">
               {spfAlignment ? (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 mr-2">
-                  <Check className="h-4 w-4 text-green-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-950/50 border border-emerald-500/20 mr-2.5">
+                  <Check className="h-3 w-3 text-emerald-400" />
                 </span>
               ) : (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 mr-2">
-                  <X className="h-4 w-4 text-red-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-950/50 border border-red-500/20 mr-2.5">
+                  <X className="h-3 w-3 text-red-400" />
                 </span>
               )}
-              <span className="font-medium">SPF Alignment</span>
+              <span className="text-slate-300 text-sm font-medium">SPF Alignment</span>
 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="ml-2 text-purple-600">
-                      <Info className="h-4 w-4" />
+                    <button className="ml-2 text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
+                      <Info className="h-3.5 w-3.5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent className="max-w-sm">
+                  <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                     {spfAlignment ? (
                       <p>
                         SUCCESS: The domain in the From header matches the domain in the Return-Path header. This means
@@ -100,24 +100,24 @@ export default function DeliveryInfo({
 
             <li className="flex items-center">
               {spfAuthenticated ? (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 mr-2">
-                  <Check className="h-4 w-4 text-green-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-950/50 border border-emerald-500/20 mr-2.5">
+                  <Check className="h-3 w-3 text-emerald-400" />
                 </span>
               ) : (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 mr-2">
-                  <X className="h-4 w-4 text-red-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-950/50 border border-red-500/20 mr-2.5">
+                  <X className="h-3 w-3 text-red-400" />
                 </span>
               )}
-              <span className="font-medium">SPF Authenticated</span>
+              <span className="text-slate-300 text-sm font-medium">SPF Authenticated</span>
 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="ml-2 text-purple-600">
-                      <Info className="h-4 w-4" />
+                    <button className="ml-2 text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
+                      <Info className="h-3.5 w-3.5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent className="max-w-sm">
+                  <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                     {spfAuthenticated ? (
                       <p>
                         SUCCESS: The sending server's IP address is authorized to send emails for the domain specified
@@ -137,24 +137,24 @@ export default function DeliveryInfo({
 
             <li className="flex items-center">
               {dkimAlignment ? (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 mr-2">
-                  <Check className="h-4 w-4 text-green-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-950/50 border border-emerald-500/20 mr-2.5">
+                  <Check className="h-3 w-3 text-emerald-400" />
                 </span>
               ) : (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 mr-2">
-                  <X className="h-4 w-4 text-red-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-950/50 border border-red-500/20 mr-2.5">
+                  <X className="h-3 w-3 text-red-400" />
                 </span>
               )}
-              <span className="font-medium">DKIM Alignment</span>
+              <span className="text-slate-300 text-sm font-medium">DKIM Alignment</span>
 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="ml-2 text-purple-600">
-                      <Info className="h-4 w-4" />
+                    <button className="ml-2 text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
+                      <Info className="h-3.5 w-3.5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent className="max-w-sm">
+                  <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                     {dkimAlignment ? (
                       <p>
                         SUCCESS: The domain in the From header matches the domain in the DKIM signature (d= parameter).
@@ -175,24 +175,24 @@ export default function DeliveryInfo({
 
             <li className="flex items-center">
               {dkimAuthenticated ? (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 mr-2">
-                  <Check className="h-4 w-4 text-green-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-950/50 border border-emerald-500/20 mr-2.5">
+                  <Check className="h-3 w-3 text-emerald-400" />
                 </span>
               ) : (
-                <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 mr-2">
-                  <X className="h-4 w-4 text-red-600" />
+                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-950/50 border border-red-500/20 mr-2.5">
+                  <X className="h-3 w-3 text-red-400" />
                 </span>
               )}
-              <span className="font-medium">DKIM Authenticated</span>
+              <span className="text-slate-300 text-sm font-medium">DKIM Authenticated</span>
 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button className="ml-2 text-purple-600">
-                      <Info className="h-4 w-4" />
+                    <button className="ml-2 text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
+                      <Info className="h-3.5 w-3.5" />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent className="max-w-sm">
+                  <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                     {dkimAuthenticated ? (
                       <p>
                         SUCCESS: The DKIM signature has been verified successfully. This confirms that the email content
@@ -217,4 +217,3 @@ export default function DeliveryInfo({
     </div>
   )
 }
-

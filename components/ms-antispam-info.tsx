@@ -190,13 +190,13 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
   const getHeaderIcon = (severity: "low" | "medium" | "high" | "none") => {
     switch (severity) {
       case "high":
-        return <AlertTriangle className="h-4 w-4 text-red-500" />
+        return <AlertTriangle className="h-4 w-4 text-red-400" />
       case "medium":
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />
+        return <AlertTriangle className="h-4 w-4 text-amber-400" />
       case "low":
-        return <Check className="h-4 w-4 text-green-500" />
+        return <Check className="h-4 w-4 text-emerald-400" />
       default:
-        return <Info className="h-4 w-4 text-gray-500" />
+        return <Info className="h-4 w-4 text-slate-400" />
     }
   }
 
@@ -204,13 +204,13 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
   const getHeaderBackground = (severity: "low" | "medium" | "high" | "none") => {
     switch (severity) {
       case "high":
-        return "bg-red-50 border-red-200"
+        return "bg-red-950/40 border-red-500/30 text-red-200"
       case "medium":
-        return "bg-yellow-50 border-yellow-200"
+        return "bg-amber-950/40 border-amber-500/20 text-amber-200"
       case "low":
-        return "bg-green-50 border-green-200"
+        return "bg-emerald-950/40 border-emerald-500/20 text-emerald-200"
       default:
-        return "bg-white border-gray-200"
+        return "bg-slate-900/40 border-slate-800/80 text-slate-200"
     }
   }
 
@@ -241,38 +241,40 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
 
   if (!hasAntispamHeaders) {
     return (
-      <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-        <p className="text-gray-600 text-sm">No Microsoft anti-spam headers found in this email.</p>
+      <div className="p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl">
+        <p className="text-slate-400 text-sm">No Microsoft anti-spam headers found in this email.</p>
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Priority headers summary - display in a grid */}
       {priorityHeadersData.length > 0 && (
         <div>
-          <h3 className="font-medium mb-3">Key Anti-Spam Indicators</h3>
+          <h3 className="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Key Anti-Spam Indicators</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {priorityHeadersData.map(({ header, value, description, severity }) => (
-              <div key={header} className={`p-3 rounded-lg border ${getHeaderBackground(severity)}`}>
-                <div className="flex items-center mb-1">
-                  {getHeaderIcon(severity)}
-                  <h3 className="font-medium ml-2">{header}</h3>
+              <div key={header} className={`p-4 rounded-xl border ${getHeaderBackground(severity)}`}>
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center">
+                    {getHeaderIcon(severity)}
+                    <h3 className="font-bold ml-2 text-slate-100">{header}</h3>
+                  </div>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="ml-2 text-purple-600">
+                        <button className="text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
                           <Info className="h-4 w-4" />
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent className="max-w-sm">
+                      <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                         <p>{description}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </div>
-                <div className="font-mono text-sm">{value}</div>
+                <div className="font-mono text-sm bg-slate-950/40 px-2 py-1 rounded border border-white/5 inline-block">{value}</div>
               </div>
             ))}
           </div>
@@ -282,27 +284,29 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
       {/* Connection information */}
       {connectionHeadersData.length > 0 && (
         <div>
-          <h3 className="font-medium mb-3">Connection Information</h3>
+          <h3 className="text-sm font-semibold text-slate-300 mb-3 uppercase tracking-wider">Connection Details</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {connectionHeadersData.map(({ header, value, description }) => (
-              <div key={header} className="p-3 rounded-lg border bg-blue-50 border-blue-200">
-                <div className="flex items-center mb-1">
-                  <Network className="h-4 w-4 text-blue-500" />
-                  <h3 className="font-medium ml-2">{header}</h3>
+              <div key={header} className="p-4 rounded-xl border bg-slate-900/40 border-slate-800/80 text-slate-200">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center">
+                    <Network className="h-4 w-4 text-cyan-400" />
+                    <h3 className="font-bold ml-2 text-slate-100">{header}</h3>
+                  </div>
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="ml-2 text-purple-600">
+                        <button className="text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
                           <Info className="h-4 w-4" />
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent className="max-w-sm">
+                      <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                         <p>{description}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </div>
-                <div className="font-mono text-sm">{value}</div>
+                <div className="font-mono text-sm bg-slate-950/40 px-2 py-1 rounded border border-white/5 inline-block text-slate-300">{value}</div>
               </div>
             ))}
           </div>
@@ -310,23 +314,25 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
       )}
 
       {/* All headers details */}
-      <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
-        <h3 className="font-medium mb-2">Microsoft Anti-Spam Headers</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="p-5 bg-slate-950/40 border border-slate-800/80 rounded-xl">
+        <h3 className="font-semibold mb-2 text-slate-100">Microsoft Anti-Spam Headers</h3>
+        <p className="text-sm text-slate-400 mb-4">
           These headers provide information about how Microsoft's email protection services evaluated this message.
         </p>
 
         <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="antispam-details">
-            <AccordionTrigger className="text-sm font-medium">View All Header Details</AccordionTrigger>
-            <AccordionContent>
-              <div className="grid grid-cols-1 gap-2 mt-2">
+          <AccordionItem value="antispam-details" className="border-none">
+            <AccordionTrigger className="text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors py-2 border-t border-slate-800/60 mt-2">
+              View All Header Details
+            </AccordionTrigger>
+            <AccordionContent className="pt-2">
+              <div className="grid grid-cols-1 gap-2 mt-2 max-h-[300px] overflow-y-auto pr-1">
                 {Object.entries(antispamHeaders).map(([header, value]) => (
-                  <div key={header} className="flex items-start p-2 bg-white rounded border border-gray-200">
-                    <div className="font-mono text-xs text-purple-700 font-semibold min-w-[80px] mr-2">{header}</div>
+                  <div key={header} className="flex items-start p-3 bg-slate-900/60 rounded-xl border border-slate-800/80">
+                    <div className="font-mono text-xs text-purple-400 font-bold min-w-[80px] mr-2">{header}</div>
                     <div className="flex-1">
-                      <div className="font-mono text-xs">{value}</div>
-                      <div className="text-xs text-gray-500 mt-1">{getHeaderDescription(header, value)}</div>
+                      <div className="font-mono text-xs text-slate-200 whitespace-pre-wrap break-all">{value}</div>
+                      <div className="text-xs text-slate-400 mt-1">{getHeaderDescription(header, value)}</div>
                     </div>
                   </div>
                 ))}
@@ -337,17 +343,17 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
       </div>
 
       {/* Reference information */}
-      <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-        <div className="flex items-center mb-2">
-          <h3 className="font-medium">Understanding Microsoft Anti-Spam Headers</h3>
+      <div className="p-5 bg-slate-950/40 border border-slate-800/80 rounded-xl text-slate-300">
+        <div className="flex items-center mb-3 border-b border-slate-800/60 pb-2">
+          <h3 className="font-semibold text-slate-100">Understanding Microsoft Anti-Spam Headers</h3>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button className="ml-2 text-purple-600">
+                <button className="ml-2 text-cyan-400 hover:text-cyan-300 transition-colors p-0.5 rounded">
                   <Info className="h-4 w-4" />
                 </button>
               </TooltipTrigger>
-              <TooltipContent className="max-w-sm">
+              <TooltipContent className="max-w-sm bg-slate-900 border border-slate-800 text-slate-200">
                 <p>
                   Microsoft adds these headers to emails processed by Exchange Online Protection and Microsoft Defender
                   for Office 365.
@@ -357,104 +363,99 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
           </TooltipProvider>
         </div>
 
-        <div className="space-y-2 text-sm">
+        <div className="space-y-2 text-xs grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
           <p>
-            <span className="font-semibold">CAT:</span> The category of protection policy applied to the message (e.g.,
-            SPAM, PHISH, BULK).
+            <strong className="text-slate-200 font-semibold mr-1">CAT:</strong> Category of protection policy applied (e.g., SPAM, PHISH, BULK).
           </p>
           <p>
-            <span className="font-semibold">SCL:</span> Spam Confidence Level (0-9). Higher values indicate higher
-            likelihood of spam.
+            <strong className="text-slate-200 font-semibold mr-1">SCL:</strong> Spam Confidence Level (0-9). Higher is more likely spam.
           </p>
           <p>
-            <span className="font-semibold">PCL:</span> Phishing Confidence Level. Indicates likelihood the message is a
-            phishing attempt.
+            <strong className="text-slate-200 font-semibold mr-1">PCL:</strong> Phishing Confidence Level. Higher is more likely phishing.
           </p>
           <p>
-            <span className="font-semibold">BCL:</span> Bulk Complaint Level. Indicates likelihood the message is
-            unwanted bulk email.
+            <strong className="text-slate-200 font-semibold mr-1">BCL:</strong> Bulk Complaint Level. Higher is more likely unwanted bulk mail.
           </p>
           <p>
-            <span className="font-semibold">SFTY:</span> Safety tips that may be displayed to warn users about
-            suspicious messages.
+            <strong className="text-slate-200 font-semibold mr-1">SFTY:</strong> Safety tips that may warn users about suspicious messages.
           </p>
           <p>
-            <span className="font-semibold">SFV:</span> Spam Filtering Verdict. Indicates how the message was processed
-            by spam filters.
+            <strong className="text-slate-200 font-semibold mr-1">SFV:</strong> Spam Filtering Verdict (how message was processed).
           </p>
           <p>
-            <span className="font-semibold">DIR:</span> The directionality of the message (INB: Inbound, OUT: Outbound,
-            INT: Internal).
+            <strong className="text-slate-200 font-semibold mr-1">DIR:</strong> Message directionality (INB: Inbound, OUT: Outbound).
           </p>
           <p>
-            <span className="font-semibold">CIP:</span> Connecting IP address of the sender's mail server.
+            <strong className="text-slate-200 font-semibold mr-1">CIP:</strong> Connecting IP address of sender's mail server.
           </p>
         </div>
       </div>
 
       {/* Authentication-Results explanation */}
       <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="auth-results">
-          <AccordionTrigger className="text-sm font-medium">Authentication-Results Reference</AccordionTrigger>
-          <AccordionContent>
-            <div className="p-4 bg-white rounded border border-gray-200 text-sm">
-              <h4 className="font-medium mb-2">Authentication-Results Fields</h4>
+        <AccordionItem value="auth-results" className="border-none">
+          <AccordionTrigger className="text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors py-2 border-t border-slate-800/60 mt-2">
+            Authentication-Results Reference
+          </AccordionTrigger>
+          <AccordionContent className="pt-2">
+            <div className="p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl text-slate-300 leading-relaxed text-sm">
+              <h4 className="font-semibold text-slate-100 mb-3 border-b border-slate-800/60 pb-1.5">Authentication-Results Fields</h4>
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div>
-                  <p className="font-semibold">compauth</p>
-                  <p className="text-gray-600">
+                  <p className="font-semibold text-slate-200">compauth</p>
+                  <p className="text-slate-400 text-xs mt-0.5">
                     Composite authentication result combining SPF, DKIM, DMARC, and other factors.
                   </p>
-                  <ul className="list-disc pl-5 text-xs mt-1">
+                  <ul className="list-disc pl-5 text-xs mt-1.5 space-y-0.5 text-slate-300">
                     <li>
-                      <span className="font-mono">pass</span> - Authentication passed
+                      <span className="font-mono text-cyan-400">pass</span> - Authentication passed
                     </li>
                     <li>
-                      <span className="font-mono">fail</span> - Authentication failed
+                      <span className="font-mono text-red-400">fail</span> - Authentication failed
                     </li>
                     <li>
-                      <span className="font-mono">softfail</span> - Authentication had a soft failure
+                      <span className="font-mono text-amber-400">softfail</span> - Authentication had a soft failure
                     </li>
                     <li>
-                      <span className="font-mono">none</span> - No authentication was performed
+                      <span className="font-mono text-slate-400">none</span> - No authentication was performed
                     </li>
                   </ul>
                 </div>
 
                 <div>
-                  <p className="font-semibold">reason</p>
-                  <p className="text-gray-600">
+                  <p className="font-semibold text-slate-200">reason</p>
+                  <p className="text-slate-400 text-xs mt-0.5">
                     A three-digit code explaining why the composite authentication passed or failed.
                   </p>
-                  <ul className="list-disc pl-5 text-xs mt-1">
+                  <ul className="list-disc pl-5 text-xs mt-1.5 space-y-0.5 text-slate-300">
                     <li>
-                      <span className="font-mono">000</span> - Explicit authentication failure
+                      <span className="font-mono text-red-400">000</span> - Explicit authentication failure
                     </li>
                     <li>
-                      <span className="font-mono">001</span> - Implicit authentication failure
+                      <span className="font-mono text-red-400">001</span> - Implicit authentication failure
                     </li>
                     <li>
-                      <span className="font-mono">1xx/7xx</span> - Authentication passed
+                      <span className="font-mono text-emerald-400">1xx/7xx</span> - Authentication passed
                     </li>
                     <li>
-                      <span className="font-mono">2xx</span> - Soft pass for implicit authentication
+                      <span className="font-mono text-cyan-400">2xx</span> - Soft pass for implicit authentication
                     </li>
                   </ul>
                 </div>
 
                 <div>
-                  <p className="font-semibold">action</p>
-                  <p className="text-gray-600">Indicates the action taken based on DMARC check results.</p>
-                  <ul className="list-disc pl-5 text-xs mt-1">
+                  <p className="font-semibold text-slate-200">action</p>
+                  <p className="text-slate-400 text-xs mt-0.5">Indicates the action taken based on DMARC check results.</p>
+                  <ul className="list-disc pl-5 text-xs mt-1.5 space-y-0.5 text-slate-300">
                     <li>
-                      <span className="font-mono">pct.quarantine</span> - Message failed DMARC; policy set to quarantine
+                      <span className="font-mono text-amber-400">pct.quarantine</span> - Message failed DMARC; policy set to quarantine
                     </li>
                     <li>
-                      <span className="font-mono">pct.reject</span> - Message failed DMARC; policy set to reject
+                      <span className="font-mono text-red-400">pct.reject</span> - Message failed DMARC; policy set to reject
                     </li>
                     <li>
-                      <span className="font-mono">permerror</span> - A permanent error occurred during DMARC evaluation
+                      <span className="font-mono text-red-400">permerror</span> - A permanent error occurred during DMARC evaluation
                     </li>
                   </ul>
                 </div>
@@ -466,4 +467,3 @@ export default function MSAntispamInfo({ antispamHeaders }: MSAntispamInfoProps)
     </div>
   )
 }
-

@@ -43,29 +43,20 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
     if (ipv4Match) return ipv4Match[0]
 
     // If no IPv4 address found, try to extract IPv6 addresses
-    // This regex handles various IPv6 formats including compressed forms
     const ipv6Regex =
       /(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))/
     const ipv6Match = cleanedText.match(ipv6Regex)
 
-    // Return IPv6 address if found
     return ipv6Match ? ipv6Match[0] : null
   }
 
   useEffect(() => {
-    // If IP is null, undefined, or empty string, don't proceed
     if (!ip || ip.trim() === "") {
-      console.log("No IP provided to check")
       return
     }
 
-    // Extract IP address (IPv4 or IPv6)
     const ipToCheck = extractFirstIp(ip)
     setExtractedIp(ipToCheck)
-
-    // Log the IP for debugging
-    console.log("Checking IP in component:", ip)
-    console.log("Extracted IP:", ipToCheck)
 
     if (!ipToCheck) {
       setError(`Could not extract a valid IP address from: ${ip}`)
@@ -77,9 +68,6 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
       setError(null)
 
       try {
-        console.log("Using extracted IP:", ipToCheck)
-
-        // Use our server-side API route
         const response = await fetch(`/api/check-ip?ip=${encodeURIComponent(ipToCheck)}`)
 
         if (!response.ok) {
@@ -89,9 +77,7 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
 
         const responseData = await response.json()
 
-        // Check if the response has the expected structure
         if (responseData && responseData.data) {
-          // Extract the data from the v2 API response format
           setAbuseData({
             ipAddress: responseData.data.ipAddress,
             abuseConfidenceScore: responseData.data.abuseConfidenceScore,
@@ -107,7 +93,6 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
             lastReportedAt: responseData.data.lastReportedAt,
           })
         } else {
-          // IP not found in abuse database or unexpected response format
           setAbuseData(null)
         }
       } catch (err) {
@@ -123,19 +108,19 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
 
   if (!ip) {
     return (
-      <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg flex items-center">
-        <AlertCircle className="h-5 w-5 text-gray-500 mr-2" />
-        <span className="text-gray-600">No originating IP address found in the email header.</span>
+      <div className="p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl flex items-center gap-3 text-slate-400">
+        <AlertCircle className="h-5 w-5 text-slate-500 flex-shrink-0" />
+        <span className="text-sm">No originating IP address found in the email header.</span>
       </div>
     )
   }
 
   if (loading) {
     return (
-      <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-center">
-        <div className="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full mr-2"></div>
-        <span className="text-blue-600">
-          Checking IP address {extractedIp && <span className="font-medium">({extractedIp})</span>} for abuse reports...
+      <div className="p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl flex items-center gap-3 text-cyan-400">
+        <div className="animate-spin h-4 w-4 border-2 border-cyan-500 border-t-transparent rounded-full flex-shrink-0"></div>
+        <span className="text-sm">
+          Checking reputation for IP address {extractedIp && <span className="font-semibold text-slate-200">({extractedIp})</span>}...
         </span>
       </div>
     )
@@ -143,20 +128,20 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
 
   if (error) {
     return (
-      <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg flex items-center">
-        <AlertCircle className="h-5 w-5 text-orange-500 mr-2" />
-        <div className="flex-1">
-          <p className="text-orange-600 mb-1">{error}</p>
-          <p className="text-sm text-orange-500">
-            IP format may be invalid or the API service may be unavailable.
+      <div className="p-4 bg-amber-950/40 border border-amber-500/30 rounded-xl flex items-start gap-3">
+        <AlertCircle className="h-5 w-5 text-amber-500 mt-0.5 flex-shrink-0" />
+        <div className="flex-1 text-sm">
+          <p className="text-amber-200 font-semibold mb-1">{error}</p>
+          <p className="text-amber-300/80">
+            IP format may be invalid or check service is offline.
             {extractedIp && (
               <a
                 href={`https://www.abuseipdb.com/check/${encodeURIComponent(extractedIp)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 underline inline-flex items-center"
+                className="ml-2 text-cyan-400 hover:text-cyan-300 underline underline-offset-2 inline-flex items-center gap-0.5"
               >
-                Check manually <ExternalLink className="h-3 w-3 ml-1" />
+                Check manually <ExternalLink className="h-3 w-3" />
               </a>
             )}
           </p>
@@ -167,35 +152,37 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
 
   if (!abuseData || abuseData.totalReports === 0) {
     return (
-      <div className="p-4 bg-green-50 border border-green-200 rounded-lg flex items-center">
-        <Shield className="h-5 w-5 text-green-500 mr-2" />
-        <div>
-          <p className="text-green-600">
-            IP address <span className="font-medium">{extractedIp}</span> not found in AbuseIPDB.
+      <div className="p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-xl flex items-start gap-3 text-emerald-200">
+        <Shield className="h-5 w-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+        <div className="text-sm flex-grow">
+          <p className="font-semibold text-emerald-300">
+            IP address <span className="font-mono text-white px-1.5 py-0.5 bg-emerald-950/60 rounded border border-emerald-500/20">{extractedIp}</span> is clean.
           </p>
-          {extractedIp && (
-            <p className="text-sm text-green-600 mt-1">
+          <p className="text-emerald-400/85 mt-1 text-xs">
+            Not listed in malicious activity logs. 
+            {extractedIp && (
               <a
                 href={`https://www.abuseipdb.com/check/${encodeURIComponent(extractedIp)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline inline-flex items-center"
+                className="ml-2 text-cyan-400 hover:text-cyan-300 underline underline-offset-2 inline-flex items-center gap-0.5 font-semibold"
               >
-                View details <ExternalLink className="h-3 w-3 ml-1" />
+                View reports <ExternalLink className="h-3 w-3" />
               </a>
-            </p>
-          )}
+            )}
+          </p>
         </div>
       </div>
     )
   }
 
-  // IP found in abuse database
   return (
-    <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-      <div className="flex items-center mb-2">
-        <AlertTriangle className="h-5 w-5 text-red-500 mr-2" />
-        <h3 className="font-medium text-red-700">Potential Malicious IP Detected</h3>
+    <div className="p-5 bg-red-950/40 border border-red-500/30 rounded-xl text-red-200 box-glow border-red-500/20">
+      <div className="flex items-center justify-between mb-4 border-b border-red-500/10 pb-2">
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="h-5 w-5 text-red-400 flex-shrink-0" />
+          <h3 className="font-semibold text-red-300">Potential Malicious IP Detected</h3>
+        </div>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -203,69 +190,68 @@ export default function IPAbuseCheck({ ip }: IPAbuseCheckProps) {
                 href={`https://www.abuseipdb.com/check/${encodeURIComponent(abuseData.ipAddress)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 text-red-600 hover:text-red-800"
+                className="text-red-400 hover:text-red-300 transition-colors"
               >
                 <ExternalLink className="h-4 w-4" />
               </a>
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent className="bg-slate-900 border border-slate-800 text-slate-200">
               <p>View full report on AbuseIPDB</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-        <div>
-          <p className="text-sm text-red-600">
-            <span className="font-semibold">IP Address:</span> {abuseData.ipAddress}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-3 leading-relaxed">
+        <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 space-y-1">
+          <p className="text-red-300/90">
+            <span className="font-semibold text-red-400 mr-1.5">IP Address:</span> {abuseData.ipAddress}
           </p>
-          <p className="text-sm text-red-600">
-            <span className="font-semibold">Abuse Confidence Score:</span> {abuseData.abuseConfidenceScore}%
+          <p className="text-red-300/90">
+            <span className="font-semibold text-red-400 mr-1.5">Confidence Score:</span> {abuseData.abuseConfidenceScore}%
           </p>
-          <p className="text-sm text-red-600">
-            <span className="font-semibold">Total Reports:</span> {abuseData.totalReports}
+          <p className="text-red-300/90">
+            <span className="font-semibold text-red-400 mr-1.5">Total Reports:</span> {abuseData.totalReports}
           </p>
           {abuseData.numDistinctUsers && (
-            <p className="text-sm text-red-600">
-              <span className="font-semibold">Distinct Reporters:</span> {abuseData.numDistinctUsers}
+            <p className="text-red-300/90">
+              <span className="font-semibold text-red-400 mr-1.5">Distinct Reporters:</span> {abuseData.numDistinctUsers}
             </p>
           )}
         </div>
-        <div>
-          <p className="text-sm text-red-600">
-            <span className="font-semibold">Country:</span> {abuseData.countryName} ({abuseData.countryCode})
+        <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 space-y-1">
+          <p className="text-red-300/90">
+            <span className="font-semibold text-red-400 mr-1.5">Country:</span> {abuseData.countryName} ({abuseData.countryCode})
           </p>
           {abuseData.isp && (
-            <p className="text-sm text-red-600">
-              <span className="font-semibold">ISP:</span> {abuseData.isp}
+            <p className="text-red-300/90">
+              <span className="font-semibold text-red-400 mr-1.5">ISP:</span> {abuseData.isp}
             </p>
           )}
           {abuseData.usageType && (
-            <p className="text-sm text-red-600">
-              <span className="font-semibold">Usage Type:</span> {abuseData.usageType}
+            <p className="text-red-300/90">
+              <span className="font-semibold text-red-400 mr-1.5">Usage Type:</span> {abuseData.usageType}
             </p>
           )}
           {abuseData.lastReportedAt && (
-            <p className="text-sm text-red-600">
-              <span className="font-semibold">Last Reported:</span>{" "}
+            <p className="text-red-300/90">
+              <span className="font-semibold text-red-400 mr-1.5">Last Reported:</span>{" "}
               {new Date(abuseData.lastReportedAt).toLocaleString()}
             </p>
           )}
         </div>
       </div>
 
-      <div className="mt-3">
+      <div className="mt-4 pt-3 border-t border-red-500/10">
         <a
           href={`https://www.abuseipdb.com/check/${encodeURIComponent(abuseData.ipAddress)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-red-700 hover:text-red-900 font-medium underline inline-flex items-center"
+          className="text-xs text-cyan-400 hover:text-cyan-300 font-semibold underline underline-offset-4 inline-flex items-center gap-1 transition-colors"
         >
-          View full report on AbuseIPDB <ExternalLink className="h-3 w-3 ml-1" />
+          View detailed stats on AbuseIPDB <ExternalLink className="h-3 w-3" />
         </a>
       </div>
     </div>
   )
 }
-

@@ -66,7 +66,7 @@ export default function DkimVerification({ dkimInfo }: DkimVerificationProps) {
           setError(
             "DKIM authentication failed, but DKIM alignment passes.\n\n" +
               "DKIM authentication: FAIL - The signature could not be verified, likely because the email has been modified during transit through multiple mail servers.\n\n" +
-              "DKIM alignment: PASS - The domain in the From header matches the domain in the DKIM signature.",
+              "DKIM alignment: PASS - The domain in the From header matches the domain in the DKIM signature."
           )
         } else if (
           dkimInfo.signature.toLowerCase().includes("x-google-original-from") ||
@@ -74,7 +74,7 @@ export default function DkimVerification({ dkimInfo }: DkimVerificationProps) {
         ) {
           setError(
             "DKIM verification failed. This email appears to be spoofed or sent using a phishing tool. " +
-              "The original sender differs from the current sender, which is a common technique in phishing attacks.",
+              "The original sender differs from the current sender, which is a common technique in phishing attacks."
           )
         } else {
           setError(
@@ -82,7 +82,7 @@ export default function DkimVerification({ dkimInfo }: DkimVerificationProps) {
               "1. The message body was altered after signing\n" +
               "2. The signature was created with an invalid key\n" +
               "3. The email has been forwarded or modified during transit\n" +
-              "4. There are inconsistencies between the DKIM signature and authentication results",
+              "4. There are inconsistencies between the DKIM signature and authentication results"
           )
         }
       }
@@ -98,79 +98,80 @@ export default function DkimVerification({ dkimInfo }: DkimVerificationProps) {
   // If no DKIM info is available
   if (!dkimInfo || !dkimInfo.parsed) {
     return (
-      <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+      <div className="p-5 bg-slate-950/40 border border-slate-800/80 rounded-xl">
         <div className="flex items-center mb-2">
-          <AlertCircle className="h-5 w-5 text-gray-500 mr-2" />
-          <h3 className="font-medium">DKIM Verification</h3>
+          <AlertCircle className="h-5 w-5 text-slate-500 mr-2" />
+          <h3 className="font-semibold text-slate-100">DKIM Verification</h3>
         </div>
-        <p className="text-sm text-gray-600">No DKIM signature found in the email header.</p>
+        <p className="text-sm text-slate-400">No DKIM signature found in the email header.</p>
       </div>
     )
   }
 
   return (
-    <div className="p-4 bg-white border border-yellow-200 rounded-lg">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-purple-700">DKIM Verification</h3>
+    <div className="p-5 bg-slate-950/40 border border-slate-800/80 rounded-xl">
+      <div className="flex items-center justify-between mb-4 border-b border-slate-800/60 pb-2">
+        <h3 className="text-lg font-semibold text-slate-100">DKIM Details</h3>
 
-        <div className={`flex items-center ${dkimInfo.pass ? "text-green-600" : "text-red-600"}`}>
+        <div className={`flex items-center ${dkimInfo.pass ? "text-emerald-400" : "text-red-400"}`}>
           {dkimInfo.pass ? (
             <>
-              <Check className="h-5 w-5 mr-1" />
-              <span className="text-sm font-medium">Authentication Passed</span>
+              <Check className="h-5 w-5 mr-1.5" />
+              <span className="text-sm font-semibold">Authentication Passed</span>
             </>
           ) : (
             <>
-              <X className="h-5 w-5 mr-1" />
-              <span className="text-sm font-medium">Authentication Failed</span>
+              <X className="h-5 w-5 mr-1.5" />
+              <span className="text-sm font-semibold">Authentication Failed</span>
             </>
           )}
         </div>
       </div>
 
       {!dkimInfo.pass && (
-        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded text-sm text-red-600">{error}</div>
+        <div className="mb-6 p-4 bg-red-950/40 border border-red-500/30 rounded-xl text-sm text-red-200 whitespace-pre-line leading-relaxed">
+          {error}
+        </div>
       )}
 
       {dkimInfo.pass && (
-        <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded text-sm text-green-600">
+        <div className="mb-6 p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-xl text-sm text-emerald-200 leading-relaxed">
           <div className="flex items-center mb-2">
-            <Check className="h-5 w-5 mr-2 text-green-600" />
-            <span className="font-medium">DKIM Authentication: PASS</span>
+            <Check className="h-5 w-5 mr-2 text-emerald-400" />
+            <span className="font-semibold">DKIM Authentication: PASS</span>
           </div>
           <p>
             The DKIM signature has been verified successfully. This confirms that the email content has not been altered
-            since it was signed by the sending domain, and the signature was created with a valid private key. The
-            Authentication-Results header confirms that the signature was verified successfully.
+            since it was signed by the sending domain, and the signature was created with a valid private key.
           </p>
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <p className="text-sm">
-            <span className="font-semibold">Domain:</span> {dkimInfo.parsed.domain}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="space-y-1 bg-slate-900/40 p-4 rounded-xl border border-slate-800/50">
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-400 mr-1.5">Domain:</span> {dkimInfo.parsed.domain}
           </p>
-          <p className="text-sm">
-            <span className="font-semibold">Selector:</span> {dkimInfo.parsed.selector}
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-400 mr-1.5">Selector:</span> {dkimInfo.parsed.selector}
           </p>
-          <p className="text-sm">
-            <span className="font-semibold">Algorithm:</span> {dkimInfo.parsed.algorithm}
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-400 mr-1.5">Algorithm:</span> {dkimInfo.parsed.algorithm}
           </p>
         </div>
-        <div>
-          <p className="text-sm">
-            <span className="font-semibold">Header Fields:</span> {dkimInfo.parsed.headerFields.join(", ")}
+        <div className="space-y-1 bg-slate-900/40 p-4 rounded-xl border border-slate-800/50">
+          <p className="text-sm text-slate-300">
+            <span className="font-semibold text-slate-400 mr-1.5">Header Fields:</span> {dkimInfo.parsed.headerFields.join(", ")}
           </p>
           {dkimInfo.parsed.timestamp && (
-            <p className="text-sm">
-              <span className="font-semibold">Timestamp:</span>{" "}
+            <p className="text-sm text-slate-300">
+              <span className="font-semibold text-slate-400 mr-1.5">Timestamp:</span>{" "}
               {new Date(Number.parseInt(dkimInfo.parsed.timestamp) * 1000).toLocaleString()}
             </p>
           )}
           {dkimInfo.parsed.expiration && (
-            <p className="text-sm">
-              <span className="font-semibold">Expiration:</span>{" "}
+            <p className="text-sm text-slate-300">
+              <span className="font-semibold text-slate-400 mr-1.5">Expiration:</span>{" "}
               {new Date(Number.parseInt(dkimInfo.parsed.expiration) * 1000).toLocaleString()}
             </p>
           )}
@@ -178,10 +179,12 @@ export default function DkimVerification({ dkimInfo }: DkimVerificationProps) {
       </div>
 
       <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="dkim-signature">
-          <AccordionTrigger className="text-sm font-medium text-purple-700">DKIM Signature</AccordionTrigger>
-          <AccordionContent>
-            <div className="p-3 bg-gray-50 rounded text-xs font-mono overflow-x-auto whitespace-pre-wrap">
+        <AccordionItem value="dkim-signature" className="border-none">
+          <AccordionTrigger className="text-sm font-semibold text-purple-400 hover:text-purple-300 transition-colors py-2 border-t border-slate-800/60 mt-2">
+            View Raw DKIM Signature
+          </AccordionTrigger>
+          <AccordionContent className="pt-2">
+            <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono overflow-x-auto whitespace-pre-wrap text-slate-300 leading-relaxed">
               {dkimInfo.signature}
             </div>
           </AccordionContent>
@@ -190,4 +193,3 @@ export default function DkimVerification({ dkimInfo }: DkimVerificationProps) {
     </div>
   )
 }
-
