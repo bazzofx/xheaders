@@ -320,7 +320,22 @@ section {
 }
 
 .features-grid .cyber-card {
-  height: 220px !important;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  height: auto !important;
+  min-height: 220px;
+}
+
+.features-grid .cyber-card .feature-icon-wrapper {
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+.features-grid .cyber-card .card-content {
+  flex-grow: 1;
+  padding-right: 24px; /* Prevents text overlapping the absolute-positioned arrow icon */
 }
 
 .cyber-card {

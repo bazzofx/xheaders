@@ -127,12 +127,14 @@ export default function Home() {
             {/* Authentication Verification Card */}
             <div className="cyber-card">
               <div className="feature-icon-wrapper">
-                <Shield className="h-8 w-8 text-purple-500 stroke-[1.5]" />
+                <Shield className="h-12 w-12 text-purple-500 stroke-[1.5]" />
               </div>
-              <h3 className="card-title">Authentication Verification</h3>
-              <p className="card-description">
-                Verify SPF, DKIM and DMARC authentication to confirm email legitimacy and detect spoofing attempts.
-              </p>
+              <div className="card-content">
+                <h3 className="card-title">Authentication Verification</h3>
+                <p className="card-description">
+                  Verify SPF, DKIM and DMARC authentication to confirm email legitimacy and detect spoofing attempts.
+                </p>
+              </div>
               <div className="card-arrow">
                 <ArrowRight className="h-4 w-4 text-purple-500" />
               </div>
@@ -141,12 +143,14 @@ export default function Home() {
             {/* IP Reputation Check Card */}
             <div className="cyber-card">
               <div className="feature-icon-wrapper">
-                <Search className="h-8 w-8 text-cyan-400 stroke-[1.5]" />
+                <Search className="h-12 w-12 text-cyan-400 stroke-[1.5]" />
               </div>
-              <h3 className="card-title">IP Reputation Check</h3>
-              <p className="card-description">
-                Analyze sender IP addresses against known threat intelligence sources to identify malicious origins.
-              </p>
+              <div className="card-content">
+                <h3 className="card-title">IP Reputation Check</h3>
+                <p className="card-description">
+                  Analyze sender IP addresses against known threat intelligence sources to identify malicious origins.
+                </p>
+              </div>
               <div className="card-arrow">
                 <ArrowRight className="h-4 w-4 text-cyan-400" />
               </div>
@@ -155,12 +159,14 @@ export default function Home() {
             {/* Email Path Visualization Card */}
             <div className="cyber-card">
               <div className="feature-icon-wrapper">
-                <Mail className="h-8 w-8 text-blue-400 stroke-[1.5]" />
+                <Mail className="h-12 w-12 text-blue-400 stroke-[1.5]" />
               </div>
-              <h3 className="card-title">Email Path Visualization</h3>
-              <p className="card-description">
-                Visualize the complete email route through servers and identify suspicious routing anomalies.
-              </p>
+              <div className="card-content">
+                <h3 className="card-title">Email Path Visualization</h3>
+                <p className="card-description">
+                  Visualize the complete email route through servers and identify suspicious routing anomalies.
+                </p>
+              </div>
               <div className="card-arrow">
                 <ArrowRight className="h-4 w-4 text-blue-400" />
               </div>
