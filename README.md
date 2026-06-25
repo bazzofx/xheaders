@@ -1,4 +1,4 @@
-﻿# XHeaders
+# XHeaders
 
 # DOCKER BUILD
 ## Build the Image
@@ -11,7 +11,7 @@ docker build -t cybersiege .
 ### Method 1 (Internal route)
 Create an instance of the image (If website hosted by orign server only)
 ```
-docker run -d --name xheaders -p 127.0.0.1:3001:3001 xheaders
+docker run -d --name xheaders -p 127.0.0.1:3003:3003 xheaders
 ```
 
 ### Method 2 (Exposed Port 3000)
